@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(222, 245, 245);
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    height: 500px;
+    width: 400px;
+    margin: 100px auto;
+    
+    text-align: center;
+    
+}
+
+.title {
+    width: 180px;
+    text-transform: capitalize;
+    margin-top: 25px;
+    margin-left: 110px;
+    margin-bottom: 45px;
+    border-bottom: 5px solid rgb(90, 152, 238) ;
+    padding-bottom: 10px;
+    letter-spacing: 3px;
+}
+
+.review {
+    
+    width: 100%;
+    height: 385px;
+    background-color: white;
+    border-radius: 7px;
+    box-shadow: 0px 0px 5px  0px rgb(189, 189, 190);
+    
+}
+
+#person-img {
+    position: relative;
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+   margin-top: 15px;
+   margin-bottom: 12px;
+   z-index: 2;
+   box-shadow: 5px -5px rgb(90, 152, 238);
+}
+#author {
+    text-transform: capitalize;
+    letter-spacing: 3px;
+}
+#job {
+    font-size: 13px;
+    color: rgb(90, 152, 238);
+    margin-top: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+#info {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    font-size: 15px;
+    color: gray;
+}
+
+.button-container {
+    width: 40px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+    margin-left: 180px;
+}
+
+.prev-btn {
+    background-color: white;
+    border-style: none;
+    color: rgb(90, 152, 238);
+    font-size: 18px;
+}
+.prev-btn:hover {
+    cursor: pointer;
+    color: rgb(30, 120, 247);
+ 
+    
+}
+.next-btn {
+    background-color: white;
+    border-style: none;
+    color: rgb(90, 152, 238);
+    font-size: 18px;
+}
+.next-btn:hover {
+    cursor: pointer;
+    color: rgb(30, 120, 247);
+   
+}
+
+.random-btn {
+   
+background-color: rgb(232, 237, 246);
+color: rgb(90, 152, 238);
+font-size: 12px;
+width: 80px;
+height: 20px;
+border-radius: 5px;
+border: 2px solid rgb(90, 152, 238);
+
+
+}
+.random-btn:hover {
+    cursor: pointer;
+    color: black;
+    border: 2px solid rgb(30, 120, 247);
+    background-color: rgb(90, 152, 238);
+    font-size: 12.5px;
+} 
+
+.quote {
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    font-size: 10px;
+    background-color: rgb(90, 152, 238);
+    position: relative;
+    bottom: 335px;
+    left: 128px;
+    z-index: 3;
+}
+#quote {
+    color: white;
+    margin-top: 7px;
+    font-size: 12px;
+    
+}

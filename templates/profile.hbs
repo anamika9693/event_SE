@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Layout of a profile editing page</title>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/luxonauta/luxa@8a98/dist/compressed/luxa.css'>
+    <style>
+        #navbar nav {
+            height: 10rem;
+            width: 100vw;
+            background-color: #131418;
+            box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            position: fixed;
+            z-index: 10;
+        }
+
+        /*Styling logo*/
+        #navbar .logo {
+            padding: 1vh 1vw;
+            text-align: center;
+        }
+
+        #navbar .logo img {
+            height: 8 rem;
+            width: 8rem;
+        }
+
+        /*Styling Links*/
+        #navbar .nav-links {
+            display: flex;
+            list-style: none;
+            width: 88vw;
+            padding: 0 0.7vw;
+            justify-content: space-evenly;
+            align-items: center;
+            text-transform: uppercase;
+        }
+
+        #navbar .nav-links li a {
+            text-decoration: none;
+            margin: 0 0.7vw;
+        }
+
+        #navbar .nav-links li a:hover {
+            color: #61DAFB;
+        }
+
+        #navbar .nav-links li {
+            position: relative;
+        }
+
+        #navbar .nav-links li a::before {
+            content: "";
+            display: block;
+            height: 3px;
+            width: 0%;
+            background-color: #61DAFB;
+            position: absolute;
+            transition: all ease-in-out 250ms;
+            margin: 0 0 0 10%;
+        }
+
+        #navbar .nav-links li a:hover::before {
+            width: 80%;
+        }
+
+        /*Styling Buttons*/
+        #navbar .login-button {
+            background-color: transparent;
+            border: 1.5px solid #f2f5f7;
+            border-radius: 2em;
+            padding: 0.6rem 0.8rem;
+            margin-left: 2vw;
+            font-size: 2rem;
+            cursor: pointer;
+
+        }
+
+        #navbar .login-button:hover {
+            color: #131418;
+            background-color: #f2f5f7;
+            border: 1.5px solid #f2f5f7;
+            transition: all ease-in-out 350ms;
+        }
+
+        #navbar .join-button {
+            color: #131418;
+            background-color: #61DAFB;
+            border: 1.5px solid #61DAFB;
+            border-radius: 2em;
+            padding: 0.6rem 0.8rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        #navbar .join-button:hover {
+            color: #f2f5f7;
+            background-color: transparent;
+            border: 1.5px solid #f2f5f7;
+            transition: all ease-in-out 350ms;
+        }
+
+        /*Styling Hamburger Icon*/
+        #navbar .hamburger div {
+            width: 30px;
+            height: 3px;
+            background: #f2f5f7;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #navbar .hamburger {
+            display: none;
+        }
+
+        /*Stying for small screens*/
+        @media screen and (max-width: 800px) {
+            nav {
+                position: fixed;
+                z-index: 3;
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                cursor: pointer;
+                right: 5%;
+                top: 50%;
+                transform: translate(-5%, -50%);
+                z-index: 2;
+                transition: all 0.7s ease;
+            }
+
+            .nav-links {
+                position: fixed;
+                background: #131418;
+                height: 100vh;
+                width: 100%;
+                flex-direction: column;
+                clip-path: circle(50px at 90% -20%);
+                -webkit-clip-path: circle(50px at 90% -10%);
+                transition: all 1s ease-out;
+                pointer-events: none;
+            }
+
+            .nav-links.open {
+                clip-path: circle(1000px at 90% -10%);
+                -webkit-clip-path: circle(1000px at 90% -10%);
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                opacity: 0;
+            }
+
+            .nav-links li:nth-child(1) {
+                transition: all 0.5s ease 0.2s;
+            }
+
+            .nav-links li:nth-child(2) {
+                transition: all 0.5s ease 0.4s;
+            }
+
+            .nav-links li:nth-child(3) {
+                transition: all 0.5s ease 0.6s;
+            }
+
+            .nav-links li:nth-child(4) {
+                transition: all 0.5s ease 0.7s;
+            }
+
+            .nav-links li:nth-child(5) {
+                transition: all 0.5s ease 0.8s;
+            }
+
+            .nav-links li:nth-child(6) {
+                transition: all 0.5s ease 0.9s;
+                margin: 0;
+            }
+
+            .nav-links li:nth-child(7) {
+                transition: all 0.5s ease 1s;
+                margin: 0;
+            }
+
+            li.fade {
+                opacity: 1;
+            }
+        }
+
+        /*Animating Hamburger Icon on Click*/
+        #navbar .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        #navbar .toggle .line2 {
+            transition: all 0.7s ease;
+            width: 0;
+        }
+
+        #navbar .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+    </style>
+
+    <style>
+        input {
+            background-color: beige;
+        }
+
+        .profileeeee {
+            color: transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .profileeeee input {
+            display: none;
+        }
+
+        .profileeeee img {
+            position: absolute;
+            object-fit: cover;
+            width: 165px;
+            height: 165px;
+            box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+            border-radius: 100px;
+            z-index: 0;
+        }
+
+        .profileeeee .-label {
+            cursor: pointer;
+            height: 165px;
+            width: 165px;
+        }
+
+        .profileeeee:hover .-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            color: #fafafa;
+            transition: background-color 0.2s ease-in-out;
+            border-radius: 100px;
+            margin-bottom: 0;
+        }
+
+        .profileeeee span {
+            display: inline-flex;
+            padding: 0.2em;
+            height: 2em;
+        }
+
+        /* body {
+  height: 100vh;
+  background-color: #191815;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body a:hover {
+  text-decoration: none;
+} */
+    </style>
+    <link rel="stylesheet" href="../public/profile.css">
+    <link rel="stylesheet" href="../public/notif_js_css/notif.css">
+
+
+
+
+</head>
+
+<body style="background-image:linear-gradient(170deg,#ed44b5,#eab043,#ffffff);font-size:100%">
+    <div style="height:100px" id='navbar'>
+        <nav>
+
+
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul>
+            </ul>
+            <ul style="margin-top: 20px;">
+                <a href='/'>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3942/3942578.png" alt="ddd"
+                        style=" background-color:#eab043 height:20px; width:50px; border-radius:60px; ">
+                </a>
+            </ul>
+            <ul class="nav-links" style="margin-left: 100px;">
+
+                {{!-- <li><a href="#" style="color:white">Home</a></li> --}}
+                {{!-- <li><a href="#">Solutions</a></li>
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact Us</a></li> --}}
+                {{!-- <li><button class="login-button" href="#">Login</button></li>
+                <li><button class="join-button" href="#">Join</button></li> --}}
+
+
+
+                <div class="notification ghanti" style="margin-left:900px;">
+
+                    <div class="notBtn ghanti" href="#">
+                        <ion-icon name="notifications-outline" style="padding-top: 5px;"></ion-icon>
+
+                        <!--Number supports double digets and automaticly hides itself when there is nothing between divs -->
+
+                        <div class="box ghanti">
+                            <div class="display ghanti">
+                                <div class="nothing ghanti">
+                                    <i class="fas fa-child stick ghanti"></i>
+                                    <div class="cent ghanti">Looks Like your all caught up!</div>
+                                </div>
+
+                                {{#if event_data}}
+                                <div class="cont ghanti">
+                                    {{#if (notEmpty event_data.waitlist)}}
+
+                                    <!-- Fold this div and try deleting evrything inbetween -->
+                                    {{#each event_data.waitlist}}
+                                    <div class="sec new ghanti">
+                                        <form action="/waitlist_clicked" method="get">
+                                            <input type="hidden" name="event" value="{{this.code}}">
+                                            <div class="txt ghanti" onclick="this.parentNode.submit()"
+                                                style='padding-left:15%'>
+                                                Now you can register for
+                                                {{this.name}}!!</div>
+                                        </form>
+                                    </div>
+                                    {{/each}}
+                                    {{/if}}
+                                    {{#if (notEmpty event_data.Events)}}
+                                    <!-- Fold this div and try deleting evrything inbetween -->
+                                    {{#each event_data.Events}}
+                                    <div class="sec new ghanti">
+                                        <form action="/notif_clicked" method="get">
+                                            <input type="hidden" name="event" value="{{@key}}">
+                                            <div class="txt ghanti" onclick="this.parentNode.submit()"
+                                                style='padding-left:15%'>
+                                                There has been an Update
+                                                to event
+                                                {{this.name}}!!</div>
+                                            <div class="txt sub ghanti" onclick="this.parentNode.submit()">Edited on:
+                                                {{#formatTime
+                                                this.time
+                                                "YYYY-MM-DD"}}{{/formatTime}}</div>
+                                        </form>
+                                    </div>
+                                    {{/each}}
+                                    {{/if}}
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+                </script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+                <script src="../public/notif_js_css/notif.js"></script>
+                <div class="messages">
+
+                </div>
+
+
+
+
+                {{!-- <li><button class="join-button" href="#">Logout</button></li> --}}
+                <a href='logout'>
+                    <img src="https://png.pngtree.com/png-vector/20190505/ourmid/pngtree-vector-logout-icon-png-image_1023261.jpg"
+                        alt="ddd"
+                        style=" background-color:#eab043 height:20px; width:50px; border-radius:30px; margin-right:30px">
+                </a><a href='/profile'>
+                    <img src="data:{{image.contentType}};base64,
+              {{image.data}} " alt="ddd"
+                        style=" background-color:#eab043 height:20px; width:50px; border-radius:50px; ">
+                </a>
+
+            </ul>
+
+        </nav>
+    </div>
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById("output");
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+    </script>
+
+    <!-- partial:index.partial.html -->
+    <main class="has-dflex-center">
+        <section>
+            <div class="lx-container-70" style="margin-right: 500px; width:1900px">
+                <div class="lx-row">
+                    <h1 class="title" style="margin-left: 400px; color:#f2f5f7; font-weight:900">Edit your profile</h1>
+                </div>
+
+                <div class="lx-row align-stretch" style="width: 1200px;" >
+                    <form enctype="multipart/form-data" action="/profileUpdate" method='post' id='form1'></form>
+                    <div class="lx-column column-user-pic"  style="width:900px">
+                        <div class="profile-pic bs-md"
+                            style="background-color: antiquewhite; margin-right: 100px; margin-top: 60px; ">
+                            <h1 class="pic-label">Profile picture</h1>
+
+
+                            <!-- <div class="pic bs-md">
+              <img src="https://bit.ly/3jRbrbp" alt="" width="4024" height="6048" loading="lazy">
+              <a id="change-avatar" class="lx-btn"><i class="fas fa-camera-retro"></i>&nbsp;&nbsp;Change your profile picture.</a>
+            </div> -->
+
+
+                            <div class="profileeeee">
+                                <label class="-label" for="file">
+                                    <span class="glyphicon glyphicon-camera"></span>
+                                    <span>Change Image</span>
+                                </label>
+                                <input id="file" type="file" name='file' onchange="loadFile(event)" form='form1' />
+                                <img src="data:{{image.contentType}};base64,
+              {{image.data}} " id="output" width="200" />
+                            </div>
+
+
+
+                            <div class="pic-info">
+                                <p style="font-size:15px"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;This photo will appear on
+                                    the
+                                    platform, in your contributions or where it is mentioned.</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="lx-column" style="margin-left: 120px;">
+
+
+                        <!-- <div class="fieldset">
+              <label for="user-id">Registration</label>
+              <div class="input-wrapper">
+                <span class="icon"><i class="fas fa-address-card"></i></span>
+                <input type="number" id="user-id" value="424242" required>
+              </div>
+              <div id="user-id-helper" class="helper"></div>
+            </div> -->
+                        <form>
+                            <div class="fieldset" style="font-size:11px; font-weight:bold; ">
+                                <label for="user-name" style="font-size:18px; font-weight:bold; color:rgba(0, 0, 0, 0.8) " >Name</label>
+                                <div class="input-wrapper" style="height:40px; width:270px;">
+                                    <span class="icon"><i class="fas fa-user" style="width: 20px;"></i></span>
+                                    <input type="text" name='name' id="user-name" value="{{user.name}}"
+                                        autocomplete="username" required form='form1' style="font-weight: bold; font-size:medium" >
+                                </div>
+                                <div id="user-name-helper" class="helper">
+                                    <p>Your name can appear on the platform, in your contributions or where it is
+                                        mentioned.</p>
+                                </div>
+                            </div>
+
+
+                            <div class="fieldset" style="font-size:11px; font-weight:bold;">
+                                <label for="email" style="font-size:18px; font-weight:bold; color:rgba(0, 0, 0, 0.8) ">E-mail</label>
+                                <div class="input-wrapper"  style="height:40px; width:270px;">
+                                    <span class="icon"><i class="fas fa-envelope" style="width: 20px;"></i></span>
+                                    <input type="email" id="email" value="{{user.email}}" autocomplete="username"
+                                        readonly form='form1' style="font-weight: bold; font-size:medium">
+                                </div>
+                                <div id="email-helper" class="helper"></div>
+                            </div>
+
+                            <div class="fieldset" style="font-size:11px; font-weight:bold;">
+                                <label for="cont" style="font-size:18px; font-weight:bold; color:rgba(0, 0, 0, 0.8) ">Contact</label>
+                                <div class="input-wrapper"  style="height:40px; width:270px;">
+                                    <span class="icon"><i class="fas fa-key" style="width: 20px;"></i></span>
+                                    <input type="text" id="cont" value="{{user.contact}}"
+                                        autocomplete="current-password" name='contact' form='form1'  style="font-weight: bold; font-size:medium">
+                                </div>
+                                <div id="pass-helper" class="helper"></div>
+                            </div>
+
+                            <div class="fieldset"  style="font-size:11px; font-weight:bold;">
+                                <label for="pass" style="font-size:18px; font-weight:bold; color:rgba(0, 0, 0, 0.8) ">New Password</label>
+                                <div class="input-wrapper"  style="height:40px; width:270px;">
+                                    <span class="icon"><i class="fas fa-key" style="width: 20px;"></i></span>
+                                    <input type="password" id="pass" value="" autocomplete="current-password"
+                                        form='form1'  style="font-weight: bold; font-size:medium">
+                                </div>
+                                <div id="pass-helper" class="helper"></div>
+                            </div>
+
+                            <div class="fieldset"   style="font-size:11px; font-weight:bold;">
+                                <label for="pass"  style="font-size:18px; font-weight:bold; color:rgba(0, 0, 0, 0.8) ">Confirm Password</label>
+                                <div class="input-wrapper"   style="height:40px; width:270px;">
+                                    <span class="icon"><i class="fas fa-key"  style="width: 20px;"></i></span>
+                                    <input type="password" id="pass" value="" name='password'
+                                        autocomplete="current-password" form='form1'  style="font-weight: bold; font-size:medium">
+                                </div>
+                                <div id="pass-helper" class="helper"></div>
+                            </div>
+
+
+                            <div class="actions">
+                                <a id="cancel" class="lx-btn" href='/' style="height:40px; width:110px"><i class="fas fa-ban" style="font-size:large"></i> <span style="font-size: 12px;">&nbsp;&nbsp;Cancel</span> </a>
+                                {{!-- <a id="clear" class="lx-btn"><i class="fas fa-broom"></i>&nbsp;&nbsp;Clean</a> --}}
+                                <button type='submit' id="save" class="lx-btn" form='form1' style="height:40px; width:110px"><i
+                                        class="fas fa-save" style="font-size:large"></i >  <span style="font-size: 12px;">&nbsp;&nbsp;Save</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js" defer crossorigin="anonymous"
+        data-search-pseudo-elements></script>
+    <!-- partial -->
+
+</body>
+
+</html>

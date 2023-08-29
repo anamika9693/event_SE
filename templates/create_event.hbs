@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		#navbar nav {
+			height: 10rem;
+			width: 100vw;
+			background-color: #131418;
+			box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+			display: flex;
+			position: fixed;
+			z-index: 10;
+		}
+
+		/*Styling logo*/
+		#navbar .logo {
+			padding: 1vh 1vw;
+			text-align: center;
+		}
+
+		#navbar .logo img {
+			height: 8 rem;
+			width: 8rem;
+		}
+
+		/*Styling Links*/
+		#navbar .nav-links {
+			display: flex;
+			list-style: none;
+			width: 88vw;
+			padding: 0 0.7vw;
+			justify-content: space-evenly;
+			align-items: center;
+			text-transform: uppercase;
+		}
+
+		#navbar .nav-links li a {
+			text-decoration: none;
+			margin: 0 0.7vw;
+		}
+
+		#navbar .nav-links li a:hover {
+			color: #61DAFB;
+		}
+
+		#navbar .nav-links li {
+			position: relative;
+		}
+
+		#navbar .nav-links li a::before {
+			content: "";
+			display: block;
+			height: 3px;
+			width: 0%;
+			background-color: #61DAFB;
+			position: absolute;
+			transition: all ease-in-out 250ms;
+			margin: 0 0 0 10%;
+		}
+
+		#navbar .nav-links li a:hover::before {
+			width: 80%;
+		}
+
+		/*Styling Buttons*/
+		#navbar .login-button {
+			background-color: transparent;
+			border: 1.5px solid #f2f5f7;
+			border-radius: 2em;
+			padding: 0.6rem 0.8rem;
+			margin-left: 2vw;
+			font-size: 2rem;
+			cursor: pointer;
+
+		}
+
+		#navbar .login-button:hover {
+			color: #131418;
+			background-color: #f2f5f7;
+			border: 1.5px solid #f2f5f7;
+			transition: all ease-in-out 350ms;
+		}
+
+		#navbar .join-button {
+			color: #131418;
+			background-color: #61DAFB;
+			border: 1.5px solid #61DAFB;
+			border-radius: 2em;
+			padding: 0.6rem 0.8rem;
+			font-size: 2rem;
+			cursor: pointer;
+		}
+
+		#navbar .join-button:hover {
+			color: #f2f5f7;
+			background-color: transparent;
+			border: 1.5px solid #f2f5f7;
+			transition: all ease-in-out 350ms;
+		}
+
+		/*Styling Hamburger Icon*/
+		#navbar .hamburger div {
+			width: 30px;
+			height: 3px;
+			background: #f2f5f7;
+			margin: 5px;
+			transition: all 0.3s ease;
+		}
+
+		#navbar .hamburger {
+			display: none;
+		}
+
+		/*Stying for small screens*/
+		@media screen and (max-width: 800px) {
+			nav {
+				position: fixed;
+				z-index: 3;
+			}
+
+			.hamburger {
+				display: block;
+				position: absolute;
+				cursor: pointer;
+				right: 5%;
+				top: 50%;
+				transform: translate(-5%, -50%);
+				z-index: 2;
+				transition: all 0.7s ease;
+			}
+
+			.nav-links {
+				position: fixed;
+				background: #131418;
+				height: 100vh;
+				width: 100%;
+				flex-direction: column;
+				clip-path: circle(50px at 90% -20%);
+				-webkit-clip-path: circle(50px at 90% -10%);
+				transition: all 1s ease-out;
+				pointer-events: none;
+			}
+
+			.nav-links.open {
+				clip-path: circle(1000px at 90% -10%);
+				-webkit-clip-path: circle(1000px at 90% -10%);
+				pointer-events: all;
+			}
+
+			.nav-links li {
+				opacity: 0;
+			}
+
+			.nav-links li:nth-child(1) {
+				transition: all 0.5s ease 0.2s;
+			}
+
+			.nav-links li:nth-child(2) {
+				transition: all 0.5s ease 0.4s;
+			}
+
+			.nav-links li:nth-child(3) {
+				transition: all 0.5s ease 0.6s;
+			}
+
+			.nav-links li:nth-child(4) {
+				transition: all 0.5s ease 0.7s;
+			}
+
+			.nav-links li:nth-child(5) {
+				transition: all 0.5s ease 0.8s;
+			}
+
+			.nav-links li:nth-child(6) {
+				transition: all 0.5s ease 0.9s;
+				margin: 0;
+			}
+
+			.nav-links li:nth-child(7) {
+				transition: all 0.5s ease 1s;
+				margin: 0;
+			}
+
+			li.fade {
+				opacity: 1;
+			}
+		}
+
+		/*Animating Hamburger Icon on Click*/
+		#navbar .toggle .line1 {
+			transform: rotate(-45deg) translate(-5px, 6px);
+		}
+
+		#navbar .toggle .line2 {
+			transition: all 0.7s ease;
+			width: 0;
+		}
+
+		#navbar .toggle .line3 {
+			transform: rotate(45deg) translate(-5px, -6px);
+		}
+	</style>
+	<link rel="stylesheet" href="../public/create_event/check.css">
+	<link rel="stylesheet" href="../public/notif_js_css/notif.css">
+
+</head>
+
+<body>
+	<div style="height:100px" id='navbar'>
+		<nav>
+
+
+			<div class="hamburger">
+				<div class="line1"></div>
+				<div class="line2"></div>
+				<div class="line3"></div>
+			</div>
+			<ul>
+			</ul>
+			<ul style="margin-top: 20px;">
+				<a href='/' style='background-color:inherit'>
+					<img src="https://cdn-icons-png.flaticon.com/512/3942/3942578.png" alt="ddd"
+						style=" background-color:#eab043 height:20px; width:50px; border-radius:60px; ">
+				</a>
+			</ul>
+			<ul class="nav-links" style="margin-left: 100px;">
+
+				{{!-- <li><a href="#" style="color:white">Home</a></li> --}}
+				{{!-- <li><a href="#">Solutions</a></li>
+				<li><a href="#">Products</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="#">Contact Us</a></li> --}}
+				{{!-- <li><button class="login-button" href="#">Login</button></li>
+				<li><button class="join-button" href="#">Join</button></li> --}}
+
+
+
+				<div class="notification ghanti" style="margin-left:900px;">
+
+					<div class="notBtn ghanti" href="#">
+						<ion-icon name="notifications-outline" style="padding-top: 5px;"></ion-icon>
+
+						<!--Number supports double digets and automaticly hides itself when there is nothing between divs -->
+
+						<div class="box ghanti">
+							<div class="display ghanti">
+								<div class="nothing ghanti">
+									<i class="fa fa-child stick ghanti"></i>
+									<div class="cent ghanti">Looks Like your all caught up!</div>
+								</div>
+
+								{{#if event_data}}
+								<div class="cont ghanti">
+									{{#if (notEmpty event_data.waitlist)}}
+
+									<!-- Fold this div and try deleting evrything inbetween -->
+									{{#each event_data.waitlist}}
+									<div class="sec new ghanti">
+										<form action="/waitlist_clicked" method="get">
+											<input type="hidden" name="event" value="{{this.code}}">
+											<div class="txt ghanti" onclick="this.parentNode.submit()"
+												style='padding-left:15%'>
+												Now you can register for
+												{{this.name}}!!</div>
+										</form>
+									</div>
+									{{/each}}
+									{{/if}}
+									{{#if (notEmpty event_data.Events)}}
+									<!-- Fold this div and try deleting evrything inbetween -->
+									{{#each event_data.Events}}
+									<div class="sec new ghanti">
+										<form action="/notif_clicked" method="get">
+											<input type="hidden" name="event" value="{{@key}}">
+											<div class="txt ghanti" onclick="this.parentNode.submit()"
+												style='padding-left:15%'>
+												There has been an Update
+												to event
+												{{this.name}}!!</div>
+											<div class="txt sub ghanti" onclick="this.parentNode.submit()">Edited on:
+												{{#formatTime
+												this.time
+												"YYYY-MM-DD"}}{{/formatTime}}</div>
+										</form>
+									</div>
+									{{/each}}
+									{{/if}}
+								</div>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+				</script>
+				<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+				<script src="../public/notif_js_css/notif.js"></script>
+				<div class="messages">
+
+				</div>
+
+
+
+
+				{{!-- <li><button class="join-button" href="#">Logout</button></li> --}}
+				<a href='logout' style='background-color:inherit'>
+					<img src="https://png.pngtree.com/png-vector/20190505/ourmid/pngtree-vector-logout-icon-png-image_1023261.jpg"
+						alt="ddd"
+						style=" background-color:#eab043 height:20px; width:50px; border-radius:30px; margin-right:30px">
+				</a><a href='/profile' style='background-color:inherit'>
+					<img src="data:{{image.contentType}};base64,
+              {{image.data}} " alt="ddd"
+						style=" background-color:#eab043 height:20px; width:50px; border-radius:50px; ">
+				</a>
+
+			</ul>
+
+		</nav>
+	</div>
+	<!-- <body style="background-image: linear-gradient(45 deg,#bd047f0c,#e88e0600);"> -->
+	<div class="banner">
+		<header class="container">
+
+			<div class="nav-bg-fostrap">
+				<div class="navbar-fostrap">xxx</div>
+				<a href="" class="title-mobile">Fostrap</a>
+			</div>
+		</header>
+		<h1 style="color: aliceblue; margin-left: 670px; padding-top: 50px;">CREATE EVENT</h1>
+		<!-- <div class="card-layer" style="height: 1100px; width: 950px; background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7));" > -->
+		<div class="card-layer" style="height: 1100px; width: 1150px; margin-right: 210px;  margin-bottom: 1%; ">
+			<!-- background-image:linear-gradient(45deg,#bd0480,#e88e06) -->
+			<!-- style="background-image:linear-gradient(170deg,#ed44b5,#eab043,#ffffff)" -->
+
+			<div class="card-pay"
+				style="height: 83%; width: 1400px; margin-left: 70px; border-radius: 60px;  margin-bottom: 1%;overflow-y: scroll;">
+				<div class="container-fluid" style="height: 90%; margin: 1%;">
+					<div class="row" style=" height: 95%px; margin-bottom: 1%;">
+						<div class="col-md-12">
+							<form action="/new_event" method="post" enctype="multipart/form-data" style="margin: 1%;">
+
+								<div class="form-group">
+									<div class="input_box">
+										<input class="form-control" name="event_name" id="event_name"
+											placeholder="Event Name" required>
+									</div>
+
+									<br>
+								</div>
+								<div class="form-group">
+									<div class="input_box">
+										<div style="margin-left: 20px; font-size: larger;"> Event Date </div>
+										<input type="date" class="form-control" name="event_date" id="event_date" min=""
+											placeholder="Event Date" style="color:#4d5259;" required>
+									</div>
+								</div>
+								<br>
+								<br>
+								<div class="form-group">
+									<div class="input_box">
+										<textarea class="form-control" name="event_desc" id="event_desc"
+											placeholder="Event Description" required
+											style='overflow:hidden;resize:none;'></textarea>
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group">
+									<div class="input_box">
+										<input type="number" min="0" max="10000" class="form-control" name="event_fee"
+											id="event_fee" placeholder="Event Fee" required>
+									</div>
+								</div>
+								<br>
+								<div class="form-group">
+									<div class="input_box">
+										<input type="number" min="1" max="100000" class="form-control"
+											name="max_participants" id="max_participants" placeholder="Max Participants"
+											required>
+									</div>
+								</div>
+								<br>
+
+								<div class="form-group">
+									<div class="input_box">
+										<div style="margin-left: 20px; font-size: larger;"> Registration Date </div>
+										<input type="date" class="form-control" name="registration_date"
+											id="registration_date" value="1970-01-01">
+									</div>
+								</div>
+								<br>
+								<br>
+								<div class="form-group">
+									<div class="input_box">
+										<div style="margin-left: 20px; font-size: larger;"> Event Time </div>
+										<input type="time" class="form-control" name="event_time" id="event_time"
+											required>
+									</div>
+								</div>
+								<br>
+
+
+								<br>
+								<div style="display: flex; margin-left: 10px;">
+
+									<div class="form-group">
+										<div class="input_box" style="display: flex; margin-left: 59px; ">
+											<div style="margin-left: 2px; font-size: larger;"> Event Type </div>
+											<div style="margin-left: 40px;">
+												<div class="select">
+													<select name="event_type" id="event_type" class="form-control"
+														required>
+														<option value="online"><span style="color: black;">
+																Online</span></option>
+														<option value="offline">Offline</option>
+														<option value="hybrid">Hybrid</option>
+													</select>
+												</div>
+
+
+
+
+
+											</div>
+										</div>
+									</div>
+
+
+
+									<div class="form-group" style="margin-left: 200px;">
+										<div class="input_box" style="display: flex; margin-left: 30px;">
+											<div style="margin-left: 1px; font-size: larger;"> Event Scope </div>
+											<div style="margin-left: 40px;">
+												<select name="event_scope" id="event_scope" class="form-control"
+													style="background-color: rgb(249, 243, 237);" required>
+													<option value="private">Private</option>
+													<option value="public" selected>Public</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
+
+								<div class="form-group" style="margin-left: 72px; display: inline-flex;">
+									<label for="exampleInputFile" style="width: 200px;">
+										<div style="margin-left: 0px; font-size: larger;"> Upload Brochure </div>
+									</label>
+									<div class="input_box" style="margin-left: 0px;">
+										<input type="file" name="brochure" class="form-control-file" id="brochure"
+											placeholder="hcd" style="color: #4d5259;">
+									</div>
+								</div>
+
+
+
+								<br><br>
+								<div style="display: flex;">
+									<div class="form-group" id="req" style="  margin-left: 54px;">
+										<label style="display:inline-block">
+											<div style="margin-left: 20px; font-size: larger;">Add Requirements </div>
+										</label>
+										<button type="button" id="req_add" style="display:inline-block">+</button>
+										<br>
+									</div>
+									<div class="form-group" id="contact" style="margin-left: 290px;">
+										<label style=" font-size: larger;margin-left:6px">
+											Add Contacts
+										</label>
+										<button type="button" id="con_add">+</button>
+										<br>
+									</div>
+
+								</div>
+								<button type="submit" class="btn btn-primary " id="Submit"
+									style="margin-left: 44%; margin-top: 9%;margin-bottom:10%">
+									Submit
+								</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<script src="../public/js/jquery.min.js"></script>
+		<script src="../public/js/bootstrap.min.js"></script>
+		<script src="../public/js/scripts.js"></script>;
+
+		<script>
+
+			let num_req = 1;
+			let con_req = 1;
+			document.getElementById("req_add").addEventListener("click", () => {
+
+
+				if (num_req > 10) {
+					alert("Maximum of 10 descriptions allowed");
+					return false;
+				}
+				let req = document.getElementById('req');
+				let isadd = 1;
+				if (num_req > 1) {
+					for (let i = 1; i < num_req; i++) {
+						let check = document.getElementById(`req-${i}`).value;
+						if (!check) {
+							alert("requirements cant be empty")
+							isadd = 0;
+							break;
+						}
+					}
+				}
+				if (isadd === 1) {
+					const div = document.createElement('div');
+					div.classList.add('input_box')
+					div.setAttribute('style', 'margin-left:20px');
+					const inputnode = document.createElement("input")
+					inputnode.setAttribute("type", "text")
+					inputnode.setAttribute("class", "form-control")
+					inputnode.setAttribute("id", `req-${num_req}`)
+					inputnode.setAttribute("name", "req_control")
+					inputnode.setAttribute('placeholder', `Enter requirement ${num_req}`);
+					div.append(inputnode)
+					req.append(div);
+					req.append(document.createElement('br'));
+					num_req++;
+				}
+			})
+
+			function addcon() {
+				var req = document.getElementById('contact');
+				const div = document.createElement('div');
+				div.classList.add('input_box')
+				const inputnode = document.createElement("input")
+				inputnode.setAttribute('placeholder', `Enter contact ${con_req}`);
+				inputnode.setAttribute("type", "text")
+				inputnode.setAttribute("class", "form-control")
+				inputnode.setAttribute("id", `con-${con_req}`)
+				inputnode.setAttribute("name", "con_control")
+				inputnode.setAttribute("pattern", '[0-9]{10}')
+				inputnode.setAttribute("required", 'true')
+				div.append(inputnode)
+				req.append(div);
+				req.append(document.createElement('br'));
+				con_req++;
+			}
+
+			addcon();
+			document.getElementById("con_add").addEventListener("click", () => {
+				if (con_req > 4) {
+					alert("Maximum of 4 contacts allowed");
+					return false;
+				}
+				for (let i = 1; i < con_req; i++) {
+					let check = document.getElementById(`con-${i}`).value;
+					if (!check) {
+						alert("contact cant be empty")
+						return false;
+					}
+				}
+
+				addcon();
+			})
+			document.getElementById('event_date').min = new Date().toISOString().substr(0, 10);
+
+		</script>
+	</div>
+	</div>
+	<script src="../public/create_event/create.js"></script>
+	</div>
+</body>
+
+</html>

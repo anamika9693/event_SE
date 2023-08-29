@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="../public/feedback/feedback.css">
+  <style>
+    #navbar nav {
+      height: 10rem;
+      width: 100vw;
+      background-color: #131418;
+      box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      position: fixed;
+      z-index: 10;
+    }
+
+    /*Styling logo*/
+    #navbar .logo {
+      padding: 1vh 1vw;
+      text-align: center;
+    }
+
+    #navbar .logo img {
+      height: 8 rem;
+      width: 8rem;
+    }
+
+    /*Styling Links*/
+    #navbar .nav-links {
+      display: flex;
+      list-style: none;
+      width: 88vw;
+      padding: 0 0.7vw;
+      justify-content: space-evenly;
+      align-items: center;
+      text-transform: uppercase;
+    }
+
+    #navbar .nav-links li a {
+      text-decoration: none;
+      margin: 0 0.7vw;
+    }
+
+    #navbar .nav-links li a:hover {
+      color: #61DAFB;
+    }
+
+    #navbar .nav-links li {
+      position: relative;
+    }
+
+    #navbar .nav-links li a::before {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 0%;
+      background-color: #61DAFB;
+      position: absolute;
+      transition: all ease-in-out 250ms;
+      margin: 0 0 0 10%;
+    }
+
+    #navbar .nav-links li a:hover::before {
+      width: 80%;
+    }
+
+    /*Styling Buttons*/
+    #navbar .login-button {
+      background-color: transparent;
+      border: 1.5px solid #f2f5f7;
+      border-radius: 2em;
+      padding: 0.6rem 0.8rem;
+      margin-left: 2vw;
+      font-size: 2rem;
+      cursor: pointer;
+
+    }
+
+    #navbar .login-button:hover {
+      color: #131418;
+      background-color: #f2f5f7;
+      border: 1.5px solid #f2f5f7;
+      transition: all ease-in-out 350ms;
+    }
+
+    #navbar .join-button {
+      color: #131418;
+      background-color: #61DAFB;
+      border: 1.5px solid #61DAFB;
+      border-radius: 2em;
+      padding: 0.6rem 0.8rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    #navbar .join-button:hover {
+      color: #f2f5f7;
+      background-color: transparent;
+      border: 1.5px solid #f2f5f7;
+      transition: all ease-in-out 350ms;
+    }
+
+    /*Styling Hamburger Icon*/
+    #navbar .hamburger div {
+      width: 30px;
+      height: 3px;
+      background: #f2f5f7;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    #navbar .hamburger {
+      display: none;
+    }
+
+    /*Stying for small screens*/
+    @media screen and (max-width: 800px) {
+      nav {
+        position: fixed;
+        z-index: 3;
+      }
+
+      .hamburger {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+      }
+
+      .nav-links {
+        position: fixed;
+        background: #131418;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+      }
+
+      .nav-links.open {
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+      }
+
+      .nav-links li {
+        opacity: 0;
+      }
+
+      .nav-links li:nth-child(1) {
+        transition: all 0.5s ease 0.2s;
+      }
+
+      .nav-links li:nth-child(2) {
+        transition: all 0.5s ease 0.4s;
+      }
+
+      .nav-links li:nth-child(3) {
+        transition: all 0.5s ease 0.6s;
+      }
+
+      .nav-links li:nth-child(4) {
+        transition: all 0.5s ease 0.7s;
+      }
+
+      .nav-links li:nth-child(5) {
+        transition: all 0.5s ease 0.8s;
+      }
+
+      .nav-links li:nth-child(6) {
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+      }
+
+      .nav-links li:nth-child(7) {
+        transition: all 0.5s ease 1s;
+        margin: 0;
+      }
+
+      li.fade {
+        opacity: 1;
+      }
+    }
+
+    /*Animating Hamburger Icon on Click*/
+    #navbar .toggle .line1 {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    #navbar .toggle .line2 {
+      transition: all 0.7s ease;
+      width: 0;
+    }
+
+    #navbar .toggle .line3 {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  </style>
+  <link rel="stylesheet" href="../public/notif_js_css/notif.css">
+
+</head>
+
+<body>
+  <div style="height:100px" id='navbar'>
+    <nav>
+
+
+      <div class="hamburger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <ul>
+      </ul>
+      <ul style="margin-top: 20px;">
+        <a href='/'>
+          <img src="https://cdn-icons-png.flaticon.com/512/3942/3942578.png" alt="ddd"
+            style=" background-color:#eab043 height:20px; width:50px; border-radius:60px; margin-left:80px ">
+        </a>
+      </ul>
+      <ul class="nav-links" style="margin-left: 100px;">
+
+        {{!-- <li><a href="#" style="color:white">Home</a></li> --}}
+        {{!-- <li><a href="#">Solutions</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact Us</a></li> --}}
+        {{!-- <li><button class="login-button" href="#">Login</button></li>
+        <li><button class="join-button" href="#">Join</button></li> --}}
+
+
+
+        <div class="notification ghanti" style="margin-left:900px;">
+
+          <div class="notBtn ghanti" href="#">
+            <ion-icon name="notifications-outline" style="padding-top: 5px;"></ion-icon>
+
+            <!--Number supports double digets and automaticly hides itself when there is nothing between divs -->
+
+            <div class="box ghanti">
+              <div class="display ghanti">
+                <div class="nothing ghanti">
+                  <i class="fas fa-child stick ghanti"></i>
+                  <div class="cent ghanti">Looks Like your all caught up!</div>
+                </div>
+
+                {{#if event_data}}
+                <div class="cont ghanti">
+                  {{#if (notEmpty event_data.waitlist)}}
+
+                  <!-- Fold this div and try deleting evrything inbetween -->
+                  {{#each event_data.waitlist}}
+                  <div class="sec new ghanti">
+                    <form action="/waitlist_clicked" method="get">
+                      <input type="hidden" name="event" value="{{this.code}}">
+                      <div class="txt ghanti" onclick="this.parentNode.submit()" style='padding-left:15%'>
+                        Now you can register for
+                        {{this.name}}!!</div>
+                    </form>
+                  </div>
+                  {{/each}}
+                  {{/if}}
+                  {{#if (notEmpty event_data.Events)}}
+                  <!-- Fold this div and try deleting evrything inbetween -->
+                  {{#each event_data.Events}}
+                  <div class="sec new ghanti">
+                    <form action="/notif_clicked" method="get">
+                      <input type="hidden" name="event" value="{{@key}}">
+                      <div class="txt ghanti" onclick="this.parentNode.submit()" style='padding-left:15%'>
+                        There has been an Update
+                        to event
+                        {{this.name}}!!</div>
+                      <div class="txt sub ghanti" onclick="this.parentNode.submit()">Edited on:
+                        {{#formatTime
+                        this.time
+                        "YYYY-MM-DD"}}{{/formatTime}}</div>
+                    </form>
+                  </div>
+                  {{/each}}
+                  {{/if}}
+                </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+        </script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="../public/notif_js_css/notif.js"></script>
+        <div class="messages">
+
+        </div>
+
+
+
+
+        {{!-- <li><button class="join-button" href="#">Logout</button></li> --}}
+        <a href='logout'>
+          <img src="https://png.pngtree.com/png-vector/20190505/ourmid/pngtree-vector-logout-icon-png-image_1023261.jpg"
+            alt="ddd" style=" background-color:#eab043 height:20px; width:50px; border-radius:30px; margin-right:30px">
+        </a><a href='/profile'>
+          <img src="data:{{image.contentType}};base64,
+              {{image.data}} " alt="ddd"
+            style=" background-color:#eab043 height:20px; width:50px; border-radius:50px; ">
+        </a>
+
+      </ul>
+
+    </nav>
+  </div>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
+
+  <link href="https://fonts.googleapis.com/css?family=Raleway:100,400,700" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald:200,400,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
+  <script src="https://use.fontawesome.com/20ab91acc4.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="./style.css">
+
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/jquery.slick/1.3.15/slick.css'>
+
+
+  <!-- partial:index.partial.html -->
+  <section id="contact" style="background-image:linear-gradient(90deg,#740f5c,#e87706);">
+
+    <h1 class="section-header">FEED-BACK</h1>
+
+    <div class="contact-wrapper">
+
+      <!--
+
+      CONTACT PAGE LEFT
+
+     --->
+
+
+
+
+
+
+
+
+
+
+      <form class="form-horizontal" role="form" method="post" action="/feedback_submitted">
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <input type="text" class="form-control" id="name" placeholder="NAME" name="name" value="" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value="{{email}}"
+              readonly>
+          </div>
+        </div>
+
+        <textarea class="form-control" rows="10" placeholder="What do you think of our website :D"
+          name="message"></textarea>
+
+        <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+          <div class="button">
+            <i class="fa fa-paper-plane"></i><span class="send-text"><a href="thankyou.html">SEND</a></span>
+          </div>
+
+        </button>
+
+      </form>
+
+      <!----------------
+
+      CONTACT PAGE RIGHT
+
+      ----------------->
+
+      <div class="direct-contact-container">
+
+        <ul class="contact-list">
+          <li class="list-item"><i class="fa fa-map-marker fa-2x"><span class="contact-text place"
+                style="color:aliceblue; font-weight:bolder">Event architects</span></i></li>
+
+          <li class="list-item"><i class="fa fa-phone fa-2x"><span class="contact-text phone"
+                style="color:aliceblue; font-weight:bolder"><a href="tel:"
+                  title="Give me a call">(+91)000000000</a></span></i></li>
+
+          <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"
+                style="color:aliceblue; font-weight:bolder"><a href="mailto:#"
+                  title="Send me an email">bhatia@gmail.com</a></span></i></li>
+
+        </ul>
+
+        <hr>
+        <ul class="social-media-list">
+          <li><a href="#" target="_blank" class="contact-icon">
+              <i class="fa fa-github" aria-hidden="true"></i></a>
+          </li>
+          <li><a href="#" target="_blank" class="contact-icon">
+              <i class="fa fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          <li><a href="#" target="_blank" class="contact-icon">
+              <i class="fa fa-instagram" aria-hidden="true"></i></a>
+          </li>
+          <li><a href="#" target="_blank" class="contact-icon">
+              <i class="fa fa-facebook" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+        <hr>
+
+        <div class="copyright">&copy; ALL OF THE RIGHTS RESERVED TO
+          <!--YOUR SITE NAME-->
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+  <script src="../public/feedback/feedback.js"></script>
+</body>
+
+</html>

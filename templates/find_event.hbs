@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #navbar nav {
+      height: 10rem;
+      width: 100vw;
+      background-color: #131418;
+      box-shadow: 0 3px 20px rgba(0, 0, 0, 0.2);
+      display: flex;
+      position: fixed;
+      z-index: 10;
+    }
+
+    /*Styling logo*/
+    #navbar .logo {
+      padding: 1vh 1vw;
+      text-align: center;
+    }
+
+    #navbar .logo img {
+      height: 8 rem;
+      width: 8rem;
+    }
+
+    /*Styling Links*/
+    #navbar .nav-links {
+      display: flex;
+      list-style: none;
+      width: 88vw;
+      padding: 0 0.7vw;
+      justify-content: space-evenly;
+      align-items: center;
+      text-transform: uppercase;
+    }
+
+    #navbar .nav-links li a {
+      text-decoration: none;
+      margin: 0 0.7vw;
+    }
+
+    #navbar .nav-links li a:hover {
+      color: #61DAFB;
+    }
+
+    #navbar .nav-links li {
+      position: relative;
+    }
+
+    #navbar .nav-links li a::before {
+      content: "";
+      display: block;
+      height: 3px;
+      width: 0%;
+      background-color: #61DAFB;
+      position: absolute;
+      transition: all ease-in-out 250ms;
+      margin: 0 0 0 10%;
+    }
+
+    #navbar .nav-links li a:hover::before {
+      width: 80%;
+    }
+
+    /*Styling Buttons*/
+    #navbar .login-button {
+      background-color: transparent;
+      border: 1.5px solid #f2f5f7;
+      border-radius: 2em;
+      padding: 0.6rem 0.8rem;
+      margin-left: 2vw;
+      font-size: 2rem;
+      cursor: pointer;
+
+    }
+
+    #navbar .login-button:hover {
+      color: #131418;
+      background-color: #f2f5f7;
+      border: 1.5px solid #f2f5f7;
+      transition: all ease-in-out 350ms;
+    }
+
+    #navbar .join-button {
+      color: #131418;
+      background-color: #61DAFB;
+      border: 1.5px solid #61DAFB;
+      border-radius: 2em;
+      padding: 0.6rem 0.8rem;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    #navbar .join-button:hover {
+      color: #f2f5f7;
+      background-color: transparent;
+      border: 1.5px solid #f2f5f7;
+      transition: all ease-in-out 350ms;
+    }
+
+    /*Styling Hamburger Icon*/
+    #navbar .hamburger div {
+      width: 30px;
+      height: 3px;
+      background: #f2f5f7;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    #navbar .hamburger {
+      display: none;
+    }
+
+    /*Stying for small screens*/
+    @media screen and (max-width: 800px) {
+      nav {
+        position: fixed;
+        z-index: 3;
+      }
+
+      .hamburger {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        right: 5%;
+        top: 50%;
+        transform: translate(-5%, -50%);
+        z-index: 2;
+        transition: all 0.7s ease;
+      }
+
+      .nav-links {
+        position: fixed;
+        background: #131418;
+        height: 100vh;
+        width: 100%;
+        flex-direction: column;
+        clip-path: circle(50px at 90% -20%);
+        -webkit-clip-path: circle(50px at 90% -10%);
+        transition: all 1s ease-out;
+        pointer-events: none;
+      }
+
+      .nav-links.open {
+        clip-path: circle(1000px at 90% -10%);
+        -webkit-clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+      }
+
+      .nav-links li {
+        opacity: 0;
+      }
+
+      .nav-links li:nth-child(1) {
+        transition: all 0.5s ease 0.2s;
+      }
+
+      .nav-links li:nth-child(2) {
+        transition: all 0.5s ease 0.4s;
+      }
+
+      .nav-links li:nth-child(3) {
+        transition: all 0.5s ease 0.6s;
+      }
+
+      .nav-links li:nth-child(4) {
+        transition: all 0.5s ease 0.7s;
+      }
+
+      .nav-links li:nth-child(5) {
+        transition: all 0.5s ease 0.8s;
+      }
+
+      .nav-links li:nth-child(6) {
+        transition: all 0.5s ease 0.9s;
+        margin: 0;
+      }
+
+      .nav-links li:nth-child(7) {
+        transition: all 0.5s ease 1s;
+        margin: 0;
+      }
+
+      li.fade {
+        opacity: 1;
+      }
+    }
+
+    /*Animating Hamburger Icon on Click*/
+    #navbar .toggle .line1 {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    #navbar .toggle .line2 {
+      transition: all 0.7s ease;
+      width: 0;
+    }
+
+    #navbar .toggle .line3 {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  </style>
+  <link rel="stylesheet" href="../public/find_event.css">
+  <link rel="stylesheet" href="../public/notif_js_css/notif.css">
+</head>
+
+<body>
+  <div style="height:100px" id='navbar'>
+    <nav>
+
+
+      <div class="hamburger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <ul>
+      </ul>
+      <ul style="margin-top: 20px;">
+        <a href='/'>
+          <img src="https://cdn-icons-png.flaticon.com/512/3942/3942578.png" alt="ddd"
+            style=" background-color:#eab043 height:20px; width:50px; border-radius:60px; margin-left:80px ">
+        </a>
+      </ul>
+      <ul class="nav-links" style="margin-left: 100px;">
+
+        {{!-- <li><a href="#" style="color:white">Home</a></li> --}}
+        {{!-- <li><a href="#">Solutions</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact Us</a></li> --}}
+        {{!-- <li><button class="login-button" href="#">Login</button></li>
+        <li><button class="join-button" href="#">Join</button></li> --}}
+
+
+
+        <div class="notification ghanti" style="margin-left:900px;">
+
+          <div class="notBtn ghanti" href="#">
+            <ion-icon name="notifications-outline" style="padding-top: 5px;"></ion-icon>
+
+            <!--Number supports double digets and automaticly hides itself when there is nothing between divs -->
+
+            <div class="box ghanti">
+              <div class="display ghanti">
+                <div class="nothing ghanti">
+                  <i class="fas fa-child stick ghanti"></i>
+                  <div class="cent ghanti">Looks Like your all caught up!</div>
+                </div>
+
+                {{#if event_datas}}
+                <div class="cont ghanti">
+                  {{#if (notEmpty event_datas.waitlist)}}
+
+                  <!-- Fold this div and try deleting evrything inbetween -->
+                  {{#each event_datas.waitlist}}
+                  <div class="sec new ghanti">
+                    <form action="/waitlist_clicked" method="get">
+                      <input type="hidden" name="event" value="{{this.code}}">
+                      <div class="txt ghanti" onclick="this.parentNode.submit()" style='padding-left:15%'>
+                        Now you can register for
+                        {{this.name}}!!</div>
+                    </form>
+                  </div>
+                  {{/each}}
+                  {{/if}}
+                  {{#if (notEmpty event_datas.Events)}}
+                  <!-- Fold this div and try deleting evrything inbetween -->
+                  {{#each event_data.Events}}
+                  <div class="sec new ghanti">
+                    <form action="/notif_clicked" method="get">
+                      <input type="hidden" name="event" value="{{@key}}">
+                      <div class="txt ghanti" onclick="this.parentNode.submit()" style='padding-left:15%'>
+                        There has been an Update
+                        to event
+                        {{this.name}}!!</div>
+                      <div class="txt sub ghanti" onclick="this.parentNode.submit()">Edited on:
+                        {{#formatTime
+                        this.time
+                        "YYYY-MM-DD"}}{{/formatTime}}</div>
+                    </form>
+                  </div>
+                  {{/each}}
+                  {{/if}}
+                </div>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js">
+        </script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <script src="../public/notif_js_css/notif.js"></script>
+        <div class="messages">
+
+        </div>
+
+
+
+
+        {{!-- <li><button class="join-button" href="#">Logout</button></li> --}}
+        <a href='logout'>
+          <img src="https://png.pngtree.com/png-vector/20190505/ourmid/pngtree-vector-logout-icon-png-image_1023261.jpg"
+            alt="ddd" style=" background-color:#eab043 height:20px; width:50px; border-radius:30px; margin-right:30px">
+        </a><a href='/profile'>
+          <img src="data:{{image.contentType}};base64,
+              {{image.data}} " alt="ddd"
+            style=" background-color:#eab043 height:20px; width:50px; border-radius:50px; ">
+        </a>
+
+      </ul>
+
+    </nav>
+  </div>
+  <div _ngcontent-d2c-frontend-c195="" class="panel_container ng-tns-c195-1 ng-star-inserted snipcss-M22Ng">
+    <div _ngcontent-d2c-frontend-c195=""
+      class="user_list custom-scrollbar thin ng-tns-c195-1 ng-star-inserted style-VTUPe" id="style-VTUPe"
+      style="background-color:bisque;">
+      <app-competition-listing _ngcontent-d2c-frontend-c195="" _nghost-d2c-frontend-c170=""
+        class="ng-tns-c195-1 ng-star-inserted">
+        <form method="post" action="/register">
+          <div style="display:flex;">
+
+            <input class="_3704LK snipcss-epJrx" type="text" title="Search for products, brands and more"
+              name="register" autocomplete="off" placeholder="Enter the event code(if applicable)" value="">
+            <button class="L0Z3Pu snipcss-xLg8X" type="submit">
+              <svg width="20" height="20" viewBox="0 0 17 18" class="" xmlns="http://www.w3.org/2000/svg">
+                <g fill="#2874F1" fill-rule="evenodd">
+                  <path class="_34RNph"
+                    d="m11.618 9.897l4.225 4.212c.092.092.101.232.02.313l-1.465 1.46c-.081.081-.221.072-.314-.02l-4.216-4.203">
+                  </path>
+                  <path class="_34RNph"
+                    d="m6.486 10.901c-2.42 0-4.381-1.956-4.381-4.368 0-2.413 1.961-4.369 4.381-4.369 2.42 0 4.381 1.956 4.381 4.369 0 2.413-1.961 4.368-4.381 4.368m0-10.835c-3.582 0-6.486 2.895-6.486 6.467 0 3.572 2.904 6.467 6.486 6.467 3.582 0 6.486-2.895 6.486-6.467 0-3.572-2.904-6.467-6.486-6.467">
+                  </path>
+                </g>
+              </svg>
+            </button>
+          </div>
+      </app-competition-listing>
+      <br>
+      </form>
+      {{#data}}
+      <form action="/find_event " method="get">
+        <input type="hidden" name="ID" value="{{scope.code}}" />
+        <app-competition-listing _ngcontent-d2c-frontend-c195="" _nghost-d2c-frontend-c170=""
+          class="ng-tns-c195-1 ng-star-inserted">
+          <div _ngcontent-d2c-frontend-c170="" class="single_profile ng-star-inserted" id="opp_665435"
+            style="background-color: bisque;">
+            <div _ngcontent-d2c-frontend-c170="" class="j-between user_img opp_content">
+              <div _ngcontent-d2c-frontend-c170="" class="img">
+                <img _ngcontent-d2c-frontend-c170="" width="50" height="50" loading="lazy"
+                  alt="img" src="data:{{image.contentType}};base64,
+              {{image.data}} ">
+              </div>
+              <div _ngcontent-d2c-frontend-c170="" class="content">
+                <h2 _ngcontent-d2c-frontend-c170="">
+                  {{event_name}}
+                </h2>
+
+              </div>
+            </div>
+
+            <div _ngcontent-d2c-frontend-c170="" class="other_fields align-center">
+
+              <div _ngcontent-d2c-frontend-c170="" class="seperate_box align-center ng-star-inserted">
+                <img _ngcontent-d2c-frontend-c170=""
+                  src="https://cdn.unstop.com/uploads/images/unstop/icons/day_left_icon.svg" alt="deadline" width="18"
+                  height="17" loading="lazy">
+                {{formatTime date.event_date "MM-DD-YYYY"}}
+
+              </div>
+              <div _ngcontent-d2c-frontend-c198="" class="hero-btn-group snipcss-Kp4Zd">
+                <button _ngcontent-d2c-frontend-c198="" class="btn waves-effect">
+                  Explore Now
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <hr style="height:3px; border-width:1px; color:chocolate; background-color:brown ">
+        </app-competition-listing>
+      </form>
+      {{/data}}
+
+
+    </div>
+    {{#event_data}}
+    <div _ngcontent-d2c-frontend-c195=""
+      class="right_bar box ng-tns-c195-1 ng-trigger ng-trigger-slideInUpOnEnter ng-animate-disabled ng-star-inserted style-8VbUo"
+      id="style-8VbUo">
+      <app-competition-preview _ngcontent-d2c-frontend-c195="" class="ng-tns-c195-1" _nghost-d2c-frontend-c194="">
+        <div _ngcontent-d2c-frontend-c194="" class="mobile_header">
+          <span _ngcontent-d2c-frontend-c194="" class="material-icons">
+            close
+          </span>
+          <div _ngcontent-d2c-frontend-c194="" class="single-wrap m_title">
+            Research Contractor- Consumer Goods
+          </div>
+          <div _ngcontent-d2c-frontend-c194="" class="m_btn">
+            Preview
+          </div>
+        </div>
+
+        <app-explore-opportunity-viewer _ngcontent-d2c-frontend-c194="" _nghost-d2c-frontend-c193=""
+          class="ng-star-inserted style-MnGAT" id="style-MnGAT">
+          <div _ngcontent-d2c-frontend-c193="" class="all_box_wrapper ng-star-inserted">
+            <app-competition-basic-form _ngcontent-d2c-frontend-c193="" _nghost-d2c-frontend-c178="">
+              <div _ngcontent-d2c-frontend-c178="" class="wrapper reg_open_page">
+                <div _ngcontent-d2c-frontend-c178="" class="inner has-bg">
+                  <div>
+                    <div _ngcontent-d2c-frontend-c178="" class="listing_dt_logo-box ng-star-inserted"
+                      style=" background-image:linear-gradient(90deg,bisque, white);">
+
+                      <div _ngcontent-d2c-frontend-c178="" class="d2c-container">
+                        <div _ngcontent-d2c-frontend-c178="" class="my_sect">
+                          <div _ngcontent-d2c-frontend-c178="" class="img">
+                            <img _ngcontent-d2c-frontend-c178="" width="110" height="110" noloading="true"
+                              alt="imgs" src="data:{{image.contentType}};base64,
+                          {{image.data}} " class="ng-star-inserted">
+                          </div>
+                          <div _ngcontent-d2c-frontend-c178="" class="cptn 456">
+                            <h1 _ngcontent-d2c-frontend-c178="" class="h1_title ng-star-inserted">
+                              {{event_name}}
+
+                            </h1>
+
+                          </div>
+                        </div>
+                        <div _ngcontent-d2c-frontend-c178="" class="tags ng-star-inserted">
+
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-d2c-frontend-c178="" class="mobile_menu"
+                      style=" background-image:linear-gradient(140deg,bisque,#fff);">
+                      <div _ngcontent-d2c-frontend-c178="" class="watch_list ng-star-inserted">
+
+                      </div>
+                      <div _ngcontent-d2c-frontend-c178="" class="register_sect ng-star-inserted">
+                        <div _ngcontent-d2c-frontend-c178="" class="reg_fee ng-star-inserted">
+                        </div>
+
+
+                        {{#if (notPast (formatTime date.event_date "MM-DD-YYYY"))}}
+                        {{#In ../cur_email ../registered }}
+                        <form action="/cancel_register" method="post">
+                          <button name="cancel_register" _ngcontent-d2c-frontend-c178="" target="_blank"
+                            class="cancel_register_btn cursor waves-effect ng-star-inserted" type="submit"
+                            value="{{scope.code}}">
+                            Cancel Registration
+                          </button>
+                        </form>
+                        {{/In}}
+                        {{#notIn ../cur_email ../registered}}
+                        {{#when max_limit 'eq' total_registrations }}
+                        <form action="/waitlist" method="post">
+                          <button name="register" _ngcontent-d2c-frontend-c178="" target="_blank"
+                            class="register_btn cursor waves-effect ng-star-inserted" type="submit"
+                            value="{{scope.code}}">
+                            Get notified
+                          </button>
+                        </form>
+                        {{/when}}
+                        {{#when max_limit 'noteq' total_registrations }}
+                        <form action="/register" method="post">
+                          <button name="register" _ngcontent-d2c-frontend-c178="" target="_blank"
+                            class="register_btn cursor waves-effect ng-star-inserted" type="submit"
+                            value="{{scope.code}}">
+                            Register
+                          </button>
+                        </form>
+                        {{/when}}
+                        {{/notIn}}
+                        {{else}}
+                        {{#In ../cur_email ../registered }}
+                        {{#if ../data.given}}
+                        <button name="Feedback" _ngcontent-d2c-frontend-c178="" target="_blank"
+                          class="cancel_register_btn cursor waves-effect ng-star-inserted"
+                          style='background-color:goldenrod'>
+                          Feedback Given
+                        </button>
+                        {{else}}
+                        <form action="/give_feedback" method="post">
+                          <input type='hidden' name='event' value='{{scope.code}}'>
+                          <button name="Feedback" _ngcontent-d2c-frontend-c178="" target="_blank"
+                            class="cancel_register_btn cursor waves-effect ng-star-inserted" type="submit"
+                            value="{{scope.code}}" style='background-color:goldenrod'>
+                            Give Feedback
+                          </button>
+                        </form>
+                        {{/if}}
+                        {{/In}}
+                        {{#notIn ../cur_email ../registered}}
+                        <button name="Expired" _ngcontent-d2c-frontend-c178="" target="_blank"
+                          class="cancel_register_btn cursor waves-effect ng-star-inserted" type='button'>
+                          Already Expired
+                        </button>
+                        {{/notIn}}
+                        {{/if}}
+
+
+                      </div>
+                    </div>
+                    <div _ngcontent-d2c-frontend-c178="" class="r_box ng-star-inserted">
+                      <div _ngcontent-d2c-frontend-c178="" class="reg_box"
+                        style=" background-image:linear-gradient(140deg,bisque,#fff);">
+                        <div _ngcontent-d2c-frontend-c178="" class="item ng-star-inserted">
+                          <div _ngcontent-d2c-frontend-c178="" class="-text icon-days_left icon-wrapper">
+                          </div>
+                          <span _ngcontent-d2c-frontend-c178="">
+                            Registration Deadline
+                            <strong _ngcontent-d2c-frontend-c178="">
+                              {{formatTime date.registration "MM-DD-YYYY"}}
+                            </strong>
+                          </span>
+                        </div>
+                        <div _ngcontent-d2c-frontend-c178="" class="item ng-star-inserted">
+                          <div _ngcontent-d2c-frontend-c178="" class="-text icon-views icon-wrapper">
+                          </div>
+                          <span _ngcontent-d2c-frontend-c178="">
+                            Event date
+                            <strong _ngcontent-d2c-frontend-c178="">
+                              {{formatTime
+                              date.event_date
+                              "MM-DD-YYYY"
+                              }}
+                            </strong>
+                          </span>
+                        </div>
+                      </div>
+                      <div _ngcontent-d2c-frontend-c178="" class="eligibility_sect ng-star-inserted"
+                        style=" background-image:linear-gradient(140deg,bisque,#fff);">
+                        <div _ngcontent-d2c-frontend-c178="" class="el-name">
+                          Fees
+                        </div>
+                        <div _ngcontent-d2c-frontend-c178="" class="e_bg">
+                          <div _ngcontent-d2c-frontend-c178="" class="items ng-star-inserted">
+                            <div _ngcontent-d2c-frontend-c178="" class="eligi ng-star-inserted">
+                              {{fees}}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </app-competition-basic-form>
+            <app-competition-about-form _ngcontent-d2c-frontend-c193="" _nghost-d2c-frontend-c182=""
+              class="1 bg ng-star-inserted" style=" background-image:linear-gradient(120deg,bisque,#f1c36d);">
+              <div _ngcontent-d2c-frontend-c182="" class="wrapper about_opp_page">
+                <div _ngcontent-d2c-frontend-c182="" class="inner">
+                  <div _ngcontent-d2c-frontend-c182="" id="tab-detail"
+                    class="-border-after about_game position-relative tab-detail">
+                    <div _ngcontent-d2c-frontend-c182="" class="d2c-container">
+                      <h2 _ngcontent-d2c-frontend-c182="" class="-border hdng ng-star-inserted">
+                        All about this event!
+                      </h2>
+                      <div _ngcontent-d2c-frontend-c182="" class="-border d2c_editor_text ng-star-inserted">
+                        <p>
+
+                          <strong>
+                            Description-:
+                          </strong>
+                        </p>
+                        {{description}}
+                        <br>
+                        <br>
+                        <br>
+                        <p>
+                          <strong>
+                            Requirements:
+                          </strong>
+                        </p>
+
+                        <ul>
+                          {{#if (array requirements)}}
+                          {{#each requirements}}
+                          <li>
+                            {{this}}
+                          </li>
+                          {{/each}}
+                          {{else}}
+                          <li>{{requirements}}</li>
+                          {{/if}}
+                        </ul>
+                        <br>
+                        <br>
+                        <br>
+                        <p>
+                          <strong>
+                            Contacts:
+                          </strong>
+                        </p>
+
+                        <ul>
+                          {{#if (array contact)}}
+
+                          {{#each contact}}
+
+                          <li>
+                            {{this}}
+                          </li>
+                          {{/each}}
+
+                          {{else}}
+                          <li>
+                            {{contact}}
+                          </li>
+
+                          {{/if}}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </app-competition-about-form>
+
+
+          </div>
+        </app-explore-opportunity-viewer>
+        {{/event_data}}
+      </app-competition-preview>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
